@@ -1,8 +1,12 @@
 import { Poppins } from "next/font/google";
-import "./globals.css";
 import {randomUUID} from "crypto";
-import Header from "@/layout/Header";
-import Footer from "@/layout/Footer";
+import { ThemeProvider } from "@mui/material/styles";
+import "./globals.css";
+
+import {shopTheme} from "@/design/theme";
+
+import Header from "@/layout/Header/Header";
+import Footer from "@/layout/Footer/Footer";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ['400', '500', '600', '700'] });
 
@@ -21,11 +25,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={poppins.className}>
+      <ThemeProvider theme={shopTheme}>
+      <body className={`${poppins.className} flex flex-col min-h-[100vh]`}>
         <Header nav={navList}/>
         {children}
-        <Footer />
+        <Footer nav={navList}/>
       </body>
+      </ThemeProvider>
     </html>
   );
 }
